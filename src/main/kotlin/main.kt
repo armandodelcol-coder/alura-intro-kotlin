@@ -5,5 +5,10 @@ fun main() {
     var saldo = 0.0
     saldo += 102
 
-    println("Seja bem vind $titular o numero de sua conta eh $numero e seu saldo atual eh de $saldo")
+    when {
+        saldo <= 0 -> println("Seja bem vind $titular o numero de sua conta eh $numero e seu saldo atual eh de $saldo")
+        saldo < 100 -> println("Seu saldo eh menor que 100")
+        else -> println("Seu saldo eh maior que 100")
+    }
+
 }
