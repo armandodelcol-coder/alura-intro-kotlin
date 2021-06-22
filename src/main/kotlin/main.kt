@@ -1,14 +1,36 @@
-fun main() {
-    println("Hello ByteBank")
-    val titular = "Armando"
-    val numero = "12345678"
-    var saldo = 0.0
-    saldo += 102
+import models.Account
+import kotlin.math.roundToInt
 
-    when {
-        saldo <= 0 -> println("Seja bem vind $titular o numero de sua conta eh $numero e seu saldo atual eh de $saldo")
-        saldo < 100 -> println("Seu saldo eh menor que 100")
-        else -> println("Seu saldo eh maior que 100")
+fun main() {
+    val listOfNames = listOf<String>("Armando", "Ana", "Maria", "Joao", "Manuela")
+    val listOfAccounts = ArrayList<Account>()
+    var incrementNumber = 1
+    for (name in listOfNames) {
+        println("Criando conta para $name")
+        val randomAmount = (Math.random() * 100.0).roundToInt()
+        val account = Account(holder = name, number = incrementNumber.toLong(), amount = randomAmount.toDouble())
+        listOfAccounts.add(account)
+        incrementNumber++
+    }
+    for (account in listOfAccounts) {
+        println(account)
     }
 
+    println("**************")
+
+    val account1 = listOfAccounts[0]
+    val account2 = listOfAccounts[1]
+    account1.deposit(10.0)
+    val tryTransfer = (Math.random() * 100.0).roundToInt()
+    println(account1.holder + " possui um saldo de " + account1.amount)
+    println(account2.holder + " possui um saldo de " + account2.amount)
+    println("Tentando transferir $tryTransfer reais de ${account1.holder} para ${account2.holder}")
+    if (account1.transferTo(account = account2, value = tryTransfer.toDouble())) {
+        println("Transferiu com sucesso")
+    } else {
+        println("Saldo insuficiente")
+    }
+    println("E agora...")
+    println(account1.holder + " possui um saldo de " + account1.amount)
+    println(account2.holder + " possui um saldo de " + account2.amount)
 }
